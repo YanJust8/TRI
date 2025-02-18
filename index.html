@@ -3,32 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎉 Birthday Surprise 🎉</title>
+  <title>Surprise!</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #f9f9f9, #f1e1e1);
-      height: 100vh;
       margin: 0;
-      overflow: hidden;
+      background-color: #f9f9f9;
       font-family: 'Playfair Display', serif;
+      overflow: hidden;
+    }
+    .intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #f1e1e1;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #333;
+      animation: fadeOut 2s ease-in-out 3s forwards;
+    }
+    .intro h1 {
+      font-size: 50px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+    .intro p {
+      font-size: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    .main-content {
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #333;
+      height: 100vh;
+      background: linear-gradient(135deg, #f9f9f9, #f1e1e1);
       text-align: center;
+      color: #333;
+      animation: fadeIn 2s ease-in-out;
     }
     h1 {
       font-size: 50px;
       margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
     }
     p {
       font-size: 24px;
       margin-bottom: 40px;
-      animation: fadeIn 3s ease-in-out;
     }
     button {
       padding: 15px 35px;
@@ -44,10 +80,6 @@
     button:hover {
       transform: scale(1.1);
       background: #e33e3e;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .kiss {
       position: absolute;
@@ -68,12 +100,23 @@
   </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday Bebbbbbb! 🎉</h1>
-  <p>Another year of loving you harder than the year before. Can’t wait for forever.</p>
-  <button onclick="launchSurprise()">Click for a Surprise!</button>
+  <div class="intro">
+    <h1>Wait for it...</h1>
+    <p>Something special is coming!</p>
+  </div>
+  <div class="main-content">
+    <h1>🎉 Happy Birthday Bebbbbbb! 🎉</h1>
+    <p>Another year of loving you harder than the year before. Can’t wait for forever.</p>
+    <button onclick="launchSurprise()">Click for a Surprise!</button>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
   <script>
+    setTimeout(() => {
+      document.querySelector('.intro').style.display = 'none';
+      document.querySelector('.main-content').style.display = 'flex';
+    }, 5000); // 5 ثواني قبل عرض المحتوى الرئيسي
+
     function launchSurprise() {
       for (let i = 0; i < 25; i++) {
         const kiss = document.createElement('div');
