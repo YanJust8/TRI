@@ -4,61 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🎉 Birthday Surprise 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #f9f9f9, #f1e1e1);
       height: 100vh;
       margin: 0;
       overflow: hidden;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Playfair Display', serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #333;
       text-align: center;
     }
     h1 {
-      font-size: 48px;
+      font-size: 50px;
       margin-bottom: 20px;
       animation: fadeIn 2s ease-in-out;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
     }
     p {
-      font-size: 22px;
+      font-size: 24px;
       margin-bottom: 40px;
       animation: fadeIn 3s ease-in-out;
     }
     button {
-      padding: 15px 30px;
-      font-size: 18px;
+      padding: 15px 35px;
+      font-size: 20px;
       color: #fff;
-      background: #ff6b6b;
+      background: #ff4b4b;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: transform 0.3s, background 0.3s;
+      font-family: 'Playfair Display', serif;
     }
     button:hover {
       transform: scale(1.1);
-      background: #ff4b4b;
+      background: #e33e3e;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .kiss {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      font-size: 80px;
-      animation: kissAnimation 1s ease-in-out;
-      transform: translate(-50%, -50%);
+      position: absolute;
+      animation: fly 3s linear infinite;
+      font-size: 120px;
+      color: #ff4b4b;
     }
-    @keyframes kissAnimation {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    @keyframes fly {
+      0% {
+        transform: translate(0, 100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(100vw, -100vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -70,11 +75,16 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
   <script>
     function launchSurprise() {
-      const kiss = document.createElement('div');
-      kiss.textContent = '💋';
-      kiss.className = 'kiss';
-      document.body.appendChild(kiss);
-      setTimeout(() => kiss.remove(), 1000);
+      for (let i = 0; i < 25; i++) {
+        const kiss = document.createElement('div');
+        kiss.textContent = '💋'; 
+        kiss.className = 'kiss';
+        kiss.style.left = `${Math.random() * 100}vw`;
+        kiss.style.fontSize = `${Math.random() * 170 + 100}px`;
+        kiss.style.animationDuration = `${Math.random() * 4 + 2}s`;
+        document.body.appendChild(kiss);
+        setTimeout(() => kiss.remove(), 4000);
+      }
 
       const duration = 5 * 1000;
       const end = Date.now() + duration;
