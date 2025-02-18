@@ -47,23 +47,35 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    canvas {
+    .kiss {
       position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: -1;
+      top: 50%;
+      left: 50%;
+      font-size: 80px;
+      animation: kissAnimation 1s ease-in-out;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes kissAnimation {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
     }
   </style>
 </head>
 <body>
   <h1>🎉 Happy Birthday Bebbbbbb! 🎉</h1>
-  <p>Another year older, wiser, and cooler! Enjoy your special day!</p>
+  <p>Another year of loving you harder than the year before. Can’t wait for forever.</p>
   <button onclick="launchSurprise()">Click for a Surprise!</button>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
   <script>
     function launchSurprise() {
+      const kiss = document.createElement('div');
+      kiss.textContent = '💋';
+      kiss.className = 'kiss';
+      document.body.appendChild(kiss);
+      setTimeout(() => kiss.remove(), 1000);
+
       const duration = 5 * 1000;
       const end = Date.now() + duration;
 
