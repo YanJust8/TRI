@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose an Envelope</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .envelope {
+            width: 200px;
+            height: 150px;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope" onclick="openEnvelope('first')">✉️ Envelope 1</div>
+    <div class="envelope" onclick="openEnvelope('second')">✉️ Envelope 2</div>
+
+    <script>
+        function openEnvelope(type) {
+            if (type === 'first') {
+                alert('I LOVE YOU MORE THAN YOU DO');
+            } else if (type === 'second') {
+                let password = prompt('Enter the password:');
+                if (password === '29122') {
+                    alert('HBD Bebbbbbb 🎉');
+                } else {
+                    alert('😑');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
