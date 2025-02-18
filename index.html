@@ -3,137 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Choose an Envelope</title>
+  <title>🎉 Birthday Surprise 🎉</title>
   <style>
     body {
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background: linear-gradient(135deg, #667eea, #764ba2);
       height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'Poppins', sans-serif;
       color: #fff;
-      animation: fadeIn 2s ease-in;
+      text-align: center;
     }
     h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+    p {
+      font-size: 22px;
       margin-bottom: 40px;
-      font-size: 36px;
-      animation: slideDown 1s ease-in-out;
+      animation: fadeIn 3s ease-in-out;
     }
-    .envelopes {
-      display: flex;
-      gap: 30px;
-    }
-    .envelope {
-      width: 220px;
-      height: 160px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 2px solid #fff;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      color: #fff;
+      background: #ff6b6b;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.4s, background-color 0.4s;
-      animation: popUp 1s ease-in-out;
+      transition: transform 0.3s;
     }
-    .envelope:hover {
+    button:hover {
       transform: scale(1.1);
-      background-color: rgba(255, 255, 255, 0.2);
+      background: #ff4b4b;
     }
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes slideDown {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes popUp {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .hearts {
+    canvas {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      animation: heartsAnimation 1s ease forwards;
-    }
-    @keyframes heartsAnimation {
-      0% { opacity: 0; transform: scale(0); }
-      50% { opacity: 1; transform: scale(1.5); }
-      100% { opacity: 0; transform: scale(2); }
+      pointer-events: none;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
-  <h1>Choose an Envelope</h1>
-  <div class="envelopes">
-    <div class="envelope" onclick="openEnvelope('first')">✉️</div>
-    <div class="envelope" onclick="openEnvelope('second')">✉️</div>
-  </div>
+  <h1>🎉 Happy Birthday Bebbbbbb! 🎉</h1>
+  <p>Another year older, wiser, and cooler! Enjoy your special day!</p>
+  <button onclick="launchSurprise()">Click for a Surprise!</button>
 
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
   <script>
-    function openEnvelope(type) {
-      if (type === 'first') {
-        showHearts();
-      } else if (type === 'second') {
-        let password = prompt('Enter the password:');
-        if (password === '29122') {
-          showHearts(() => showConfetti());
-        } else {
-          alert('😑');
-        }
-      }
-    }
+    function launchSurprise() {
+      const duration = 5 * 1000;
+      const end = Date.now() + duration;
 
-    function showHearts(callback) {
-      const hearts = document.createElement('div');
-      hearts.className = 'hearts';
-      hearts.textContent = '💖💗💓💞💕';
-      document.body.appendChild(hearts);
-      setTimeout(() => {
-        document.body.removeChild(hearts);
-        if (callback) callback();
-      }, 1000);
-    }
+      (function frame() {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
 
-    function showConfetti() {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js';
-      script.onload = () => {
-        const duration = 3 * 1000;
-        const animationEnd = Date.now() + duration;
-        const colors = ['#bb0000', '#ffffff', '#ffaa00', '#00ff00', '#00aaff', '#ff00ff'];
-
-        (function frame() {
-          const timeLeft = animationEnd - Date.now();
-          if (timeLeft <= 0) return;
-          confetti({
-            particleCount: 100,
-            startVelocity: 30,
-            spread: 360,
-            ticks: 60,
-            origin: { x: Math.random(), y: Math.random() - 0.2 },
-            colors: colors,
-          });
+        if (Date.now() < end) {
           requestAnimationFrame(frame);
-        })();
-      };
-      document.body.appendChild(script);
-      const message = document.createElement('h1');
-      message.textContent = 'HBD Bebbbbbb 🎉';
-      message.style.animation = 'fadeIn 1s ease-in';
-      document.body.appendChild(message);
+        }
+      }());
     }
   </script>
 </body>
